@@ -1,0 +1,53 @@
+{% extends "customer_app/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5 roboto-condensed-three">
+
+    <div class="d-flex justify-content-center">
+        {% include 'customer_app/_messages.html' %}
+    </div>
+    
+    <div class="row">
+        <div class="col-md"></div>
+        <div class="col-md">
+            <div class="card mt-2">
+                <div class="card-body">
+                    <h5>Change the notification date</h5>
+                    <p>Current: {{ user.notification_preference }}
+                        {% if user.notification_preference == 1 %}
+                            day before
+                        {% else %}
+                            days before
+                        {% endif %}</p>
+                    <form action="{% url 'notification' %}" method="post">
+                        {% csrf_token %}
+                        <select name="notification_preference" class="form-control" id="">
+                            <option value="">
+                                Select a day
+                            </option>
+                            <option value="1">1 day before</option>
+                            <option value="2">2 days before</option>
+                            <option value="3">3 days before</option>
+                            <option value="4">4 days before</option>
+                            <option value="5">5 days before</option>
+                            <option value="6">6 days before</option>
+                            <option value="7">7 days before</option>
+                        </select>
+                        <div class="d-flex justify-content-end mt-2">
+                            <input type="submit" class="btn btn-first rounded-pill" value="save">
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md"></div>
+    </div>
+    
+
+    
+
+    
+</div>
+{% endblock %}

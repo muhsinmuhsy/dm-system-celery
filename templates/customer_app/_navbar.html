@@ -1,0 +1,133 @@
+<nav class="navbar px-2 py-2 py-md-3 px-md-5 roboto-condensed-three">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'home' %}">Domain</a>
+        <div class="d-flex">
+            {% if user.is_authenticated %}
+                {% if not current_page == 'home' %}
+                    <a href="{% url 'home' %}" class="me-3 text-white text-decoration-none">
+                        <i class="bi bi-house-fill"></i>
+                        Home
+                    </a> 
+                {% endif %}
+                <a href="{% url 'user_domains' %}" class="me-3 text-white text-decoration-none">
+                    <i class="bi bi-globe-asia-australia"></i>
+                    Domains
+                </a>
+                {% comment %} <a href="{% url 'profile' %}" class="text-white text-decoration-none">
+                    <i class="bi bi-person-fill"></i>
+                    Profile
+                </a> {% endcomment %}
+                <div class="dropdown">
+                    <a class="text-white text-decoration-none dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-fill"></i>
+                        Profile
+                    </a>
+                  
+                    <ul class="dropdown-menu mt-2">
+                        <li>
+                            <a class="dropdown-item" href="{% url 'password_change' %}">
+                                <i class="bi bi-key"></i>
+                                <span>Change Password</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{% url 'settings' %}">
+                                <i class="bi bi-gear"></i>
+                                <span>Settings</span> 
+                                
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{% url 'logout' %}">
+                                <i class="bi bi-box-arrow-left"></i>
+                                <span>Logout</span>
+                                
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            {% else %}
+                <a href="#" class="text-white text-decoration-none me-2">About</a>
+                <a href="#" class="text-white text-decoration-none me-4 me-md-5">Contact</a>
+                <div class="dropdown">
+                    <a class="text-white text-decoration-none dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                        Sign in
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class="dropdown-item">
+                                <a href="{% url 'customer_signin' %}" class="text-dark">
+                                    <h6>Registered Users</h6>
+                                <div class="dropdown-text">Have an account? Sign in now.</div>
+                                <a href="{% url 'customer_signin' %}" class="text-primary">Sign In</a>
+                                </a>
+                                
+                            </div>
+                            
+                        </li>
+                        <hr>
+                      <li>
+                        <div class="dropdown-item">
+                            <a href="{% url 'customer_signup' %}" class="text-dark">
+                                <h6>New Customer</h6>
+                                <div class="dropdown-text">New to Domain? 
+                                    <br>Create an account to get started today.</div>
+                                <a href="{% url 'customer_signup' %}" class="text-primary">Sign UP</a>
+                            </a>
+                            
+                        </div>
+                      </li>
+                    </ul>
+                </div>
+                <!-- <a href="{% url 'customer_signin' %}" class="btn me-2 rounded-pill btn-signin">Sign In</a>
+                <a href="{% url 'customer_signup' %}" class="btn rounded-pill btn-signup">Sign Up</a> -->
+            {% endif %}
+        </div>
+    </div>
+</nav>
+
+{% if not user.is_authenticated %}
+<style>
+    .dropdown-menu[data-bs-popper] {
+        top: 100%;
+        left: -160px !important;
+        margin-top: 17px;
+    }
+
+    .dropdown-item:active {
+        color: black;
+        text-decoration: none;
+        background-color: white;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .dropdown-menu[data-bs-popper] {
+            top: 100%;
+            left: -200px !important;
+            margin-top: 20px;
+        }
+    }
+</style>
+{% else %}
+<style>
+    .dropdown-menu[data-bs-popper] {
+        top: 100%;
+        left: -50px !important;
+    }
+
+    .dropdown-item:active {
+        color: black;
+        text-decoration: none;
+        background-color: white;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .dropdown-menu[data-bs-popper] {
+            top: 100%;
+            left: -80px !important;
+            margin-top: 20px;
+        }
+    }
+</style>
+{% endif %}

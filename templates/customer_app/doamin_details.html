@@ -1,0 +1,182 @@
+{% extends "customer_app/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container mt-3 roboto-condensed-three">
+    <div class="d-flex justify-content-center">
+        {% include 'customer_app/_messages.html' %}
+      </div>
+    <h4 class="text-center mb-4">{{ domain.domain_name }}</h5>
+
+        <div class="row">         
+            
+            <div class="col-md-3 mb-3">
+                <ul class="list-group">
+                    <li class="list-group-item bg-black active" aria-current="true">Register:</li>
+                    <li class="list-group-item">{{ domain.registrar }}</li>
+                </ul>
+            </div>
+            <div class="col-md-3 mb-3">
+                <ul class="list-group">
+                    <li class="list-group-item bg-black active" aria-current="true">WHOIS server:</li>
+                    <li class="list-group-item">{{ domain.whois_server }}</li>
+                </ul>
+            </div>
+            
+            <div class="col-md-3 mb-3">
+                <ul class="list-group">
+                    <li class="list-group-item bg-black active" aria-current="true">DNSSEC:</li>
+                    <li class="list-group-item">{{ domain.dnssec }}</li>
+                </ul>
+            </div>
+
+            <div class="col-md-3 mb-3">
+                <ul class="list-group">
+                    <li class="list-group-item bg-black active" aria-current="true">Name:</li>
+                    <li class="list-group-item">{{ domain.name }}</li>
+                </ul>
+            </div>
+           
+            <div class="col-md-3 mb-3">
+                <ul class="list-group">
+                    {% if domain.updated_dates.exists %}
+                        <li class="list-group-item bg-black active" aria-current="true">Updated Dates:</li>
+                        {% for updated_date in domain.updated_dates.all %}
+                            <li class="list-group-item">{{ updated_date.updated_date|date:"Y-m-d H:i:s" }}</li>
+                        
+                        {% empty %}
+                        <li class="list-group-item">Not Available</li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+                
+            
+            <div class="col-md-3 mb-3">
+                <ul class="list-group">
+                    {% if domain.creation_dates.exists %}
+                        <li class="list-group-item bg-black active" aria-current="true">Creation Dates:</li>
+                        {% for creation_date in domain.creation_dates.all %}
+                            <li class="list-group-item">{{ creation_date.creation_date|date:"Y-m-d H:i:s" }}</li>
+                        
+                        {% empty %}
+                        <li class="list-group-item">Not Available</li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="col-md-3 mb-3">
+                <ul class="list-group">
+                    {% if domain.expiration_dates.exists %}
+                        <li class="list-group-item bg-black active" aria-current="true">Expiration Dates:</li>
+                        {% for expiration_date in domain.expiration_dates.all %}
+                            <li class="list-group-item">{{ expiration_date.expiration_date|date:"Y-m-d H:i:s" }}</li>
+                        
+                        {% empty %}
+                        <li class="list-group-item">Not Available</li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="col-md-3 mb-3">
+                <ul class="list-group">
+                    {% if domain.emails.exists %}
+                        <li class="list-group-item bg-black active" aria-current="true">Email:</li>
+                        {% for email in domain.emails.all %}
+                            <li class="list-group-item">{{ email.emails}}</li>
+                        
+                        {% empty %}
+                        <li class="list-group-item">Not Available</li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="col-md-3 mb-3">
+                <ul class="list-group">
+                    <li class="list-group-item bg-black active" aria-current="true">Organization:</li>
+                    <li class="list-group-item">{{ domain.org }}</li>
+                </ul>
+            </div>
+            <div class="col-md-3 mb-3">
+                <ul class="list-group">
+                    <li class="list-group-item bg-black active" aria-current="true">Address:</li>
+                    <li class="list-group-item">{{ domain.address }}</li>
+                </ul>
+            </div>
+            <div class="col-md-3 mb-3">
+                <ul class="list-group">
+                    <li class="list-group-item bg-black active" aria-current="true">City:</li>
+                    <li class="list-group-item">{{ domain.city }}</li>
+                </ul>
+            </div>
+            <div class="col-md-3 mb-3">
+                <ul class="list-group">
+                    <li class="list-group-item bg-black active" aria-current="true">State:</li>
+                    <li class="list-group-item">{{ domain.state }}</li>
+                </ul>
+            </div>
+            <div class="col-md-3 mb-3">
+                <ul class="list-group">
+                    <li class="list-group-item bg-black active" aria-current="true">Postal Code:</li>
+                    <li class="list-group-item">{{ domain.registrant_postal_code }}</li>
+                </ul>
+            </div>
+            <div class="col-md-3 mb-3">
+                <ul class="list-group">
+                    <li class="list-group-item bg-black active" aria-current="true">Country:</li>
+                    <li class="list-group-item">{{ domain.country }}</li>
+                </ul>
+            
+            </div>
+            
+
+            <div class="col-md-8">
+                <ul class="list-group">
+                    <li class="list-group-item bg-black active" aria-current="true">Status:</li>
+                    <li class="list-group-item">{{ domain.status }}</li>
+                </ul>
+            
+            </div>
+            <div class="col-md-4">
+                <ul class="list-group">
+                    <li class="list-group-item bg-black active" aria-current="true">Name Servers:</li>
+                    <li class="list-group-item">{{ domain.name_servers }}</li>
+                </ul>
+            </div>
+            
+
+        </div>
+    
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+
+
+
+        
+    
+    
+</div>
+
+{% endblock %}

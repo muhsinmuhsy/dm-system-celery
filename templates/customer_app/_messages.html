@@ -1,0 +1,75 @@
+{% for message in messages %}
+
+    {% if message.tags == 'success' %}
+        <div class="alert success">
+            <span class="closebtn">&times;</span>  
+            <strong>{{ message }}</strong>
+        </div>
+    {% endif %}
+
+    {% if message.tags == 'error' %}
+        <div class="alert danger">
+            <span class="closebtn">&times;</span>  
+            <strong>{{ message }}</strong>
+        </div>
+    {% endif %}
+
+{% endfor %}
+
+<style>
+    .alert {
+        padding: 10px;
+        color: white;
+        opacity: 1;
+        transition: opacity 0.6s;
+        margin-bottom: 15px;
+        position: absolute;
+        top: 80px;
+        z-index: 1000; /* Set a high z-index value */
+    }
+
+    .alert.success {background-color: #04AA6D;}
+    .alert.danger {background-color: #f44336;}
+    .alert.info {background-color: #2196F3;}
+    .alert.warning {background-color: #ff9800;}
+
+    .closebtn {
+        margin-left: 15px;
+        color: white;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .closebtn:hover {
+        color: black;
+    }
+</style>
+
+<script>
+    var close = document.getElementsByClassName("closebtn");
+    var i;
+
+    // Close alert when clicking on the close button
+    for (i = 0; i < close.length; i++) {
+        close[i].onclick = function() {
+            var div = this.parentElement;
+            div.style.opacity = "0";
+            setTimeout(function() { div.style.display = "none"; }, 600);
+        }
+    }
+
+    // Automatically close alerts after 5 seconds
+    var alerts = document.getElementsByClassName("alert");
+    for (i = 0; i < alerts.length; i++) {
+        (function(alert) {
+            setTimeout(function() {
+                alert.style.opacity = "0";
+                setTimeout(function() { alert.style.display = "none"; }, 600);
+            }, 5000);
+        })(alerts[i]);
+    }
+</script>

@@ -1,0 +1,23 @@
+{% extends "customer_app/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5 roboto-condensed-three">
+
+    {% include 'customer_app/_messages.html' %}
+    <div class=" d-flex justify-content-center align-items-center ">
+        <div class="card">
+            <div class="card-body text-center">
+                <p>{{ user.email }}</p>
+                <p>{{ user.first_name }} {{ user.last_name }}</p>
+    
+                <a href="{% url 'edit_profile' %}" class="btn btn-primary rounded-pill">Edit profile</a>
+                <a href="{% url 'password_change' %}" class="btn btn-secondary rounded-pill">Change password</a>
+                <a href="{% url 'logout' %}" class="btn btn-danger rounded-pill">Logout</a>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+{% endblock %}

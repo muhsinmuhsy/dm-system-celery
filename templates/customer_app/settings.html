@@ -1,0 +1,47 @@
+{% extends "customer_app/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5 roboto-condensed-three">
+    <div class="d-flex justify-content-center">
+        {% include 'customer_app/_messages.html' %}
+    </div>
+
+    
+    <h4 class="text-center mb-3">Settings</h4>
+    
+        <div class="row">
+            <div class="col-md">
+
+            </div>
+            <div class="col-md">
+                <div class="list-group">
+                    <a href="{% url 'edit_profile' %}" class="list-group-item list-group-item-action">
+                        <i class="bi bi-pencil-square me-2"></i>
+                        Edit Profile
+                    </a>
+                    <a href="{% url 'notification' %}" class="list-group-item list-group-item-action">
+                        <i class="bi bi-bell me-2"></i>
+                        Notification
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <i class="bi bi-people me-2"></i>
+                        About Us
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <i class="bi bi-question-circle me-2"></i>
+                        Help
+                    </a>
+                </div>
+            </div>
+            <div class="col-md">
+
+            </div>
+        </div>
+        
+        
+        
+    
+    
+</div>
+{% endblock %}

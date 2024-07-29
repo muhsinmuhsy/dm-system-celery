@@ -1,0 +1,292 @@
+{% extends "customer_app/base.html" %}
+{% load static %}
+
+{% block content %}
+{% if not user.is_authenticated %}
+  <div class="hero">
+    <h2 class="text-center roboto-mono-font">A FREE DOMAIN MONITOR AND MANAGEMENT TOOL</h2>
+    <p class="text-center roboto-mono-font">Keep your domain details up to date, and get changes notification.</p>
+    <div class="d-flex justify-content-center pt-5">
+      <a href="{% url 'customer_signup' %}" class="text-dark">
+        <button class="btn rounded-pill roboto-mono-font">Create Free Account</button>
+      </a>
+      
+    </div>
+    <div class="d-flex justify-content-end d-md-block d-none">
+      <img src="{% static 'customer_app/img/5264880-1.png' %}" alt="hero">
+    </div>
+    
+  </div>
+{% endif %}
+
+  <div class="container doamin-search-section">
+    <div class="d-flex justify-content-center">
+      {% include 'customer_app/_messages.html' %}
+    </div>
+    
+
+    <h3 class="text-center roboto-mono-font-two">Find out who owns a website.</h3>
+    <div class="mt-3 d-md-flex justify-content-center align-items">
+      <form method="post" id="domain-form" class="d-flex"> <!-- Added ID here -->
+        {% csrf_token %}
+        <input class="form-control search_input me-1 roboto-condensed-three" type="text" id="domain" name="domain" required placeholder="Enter a domain name to search..">
+        <button class="btn btn-search rounded-start roboto-condensed-three" type="submit">Search</button>
+      </form>
+    </div>
+    <div id="loading-spinner" class="d-none text-center mt-3">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+
+    
+    
+    {% if whois_domain.domain_name %}
+      <div class="card my-3 shadow border-none mt-5" id="results-section" data-show-results="{% if whois_domain.domain_name %}true{% else %}false{% endif %}">
+        <div class="card-body roboto-condensed-three">
+          <h4 class="text-center mb-4">{{ whois_domain.domain_name }}</h4>
+          
+          <div class="row">
+            <div class="col-md-3 mb-3">
+            
+              <ul class="list-group">
+                <li class="list-group-item bg-black active" aria-current="true">Registrar:</li>
+                {% for registrar in whois_domain.registrar %}
+                  <li class="list-group-item">{{ registrar }}</li>
+                  
+                  {% empty %}
+                  <li class="list-group-item">Not Available</li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="col-md-3 mb-3">
+              <ul class="list-group">
+                <li class="list-group-item bg-black active" aria-current="true">WHOIS Server:</li>
+                {% for whois_server in whois_domain.whois_server %}
+                  <li class="list-group-item">{{ whois_server }}</li>
+                  
+                  {% empty %}
+                  <li class="list-group-item">Not Available</li>
+                {% endfor %}
+              </ul>
+            </div>
+            
+            <div class="col-md-3 mb-3">
+              <ul class="list-group">
+                <li class="list-group-item bg-black active" aria-current="true">DNSSEC:</li>
+                {% for dnssec in whois_domain.dnssec %}
+                  <li class="list-group-item">{{ dnssec }}</li>
+                  {% empty %}
+                  <li class="list-group-item">Not Available</li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="col-md-3 mb-3">
+              <ul class="list-group">
+                <li class="list-group-item bg-black active" aria-current="true">Name:</li>
+                {% for name in whois_domain.name %}
+                  <li class="list-group-item">{{ name }}</li>
+                  
+                  {% empty %}
+                  <li class="list-group-item">Not Available</li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="col-md-3 mb-3">
+              <ul class="list-group">
+                <li class="list-group-item bg-black active" aria-current="true">Updated Date:</li>
+                {% for updated_date in whois_domain.updated_date %}
+                  <li class="list-group-item">{{ updated_date }}</li>            
+                  {% empty %}
+                  <li class="list-group-item">Not Available</li>
+                {% endfor %}
+              </ul>
+            </div>
+            
+            
+            <div class="col-md-3 mb-3">
+              <ul class="list-group">
+                <li class="list-group-item bg-black active" aria-current="true">Creation Date:</li>
+                {% for creation_date in whois_domain.creation_date %}
+                  <li class="list-group-item">{{ creation_date }}</li>       
+                  {% empty %}
+                  <li class="list-group-item">Not Available</li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="col-md-3 mb-3">
+              
+              <ul class="list-group">
+                <li class="list-group-item bg-black active" aria-current="true">Expiration Date:</li>
+                {% for expiration_date in whois_domain.expiration_date %}
+                  <li class="list-group-item">{{ expiration_date }}</li>
+                  
+                  {% empty %}
+                  <li class="list-group-item">Not Available</li>
+                {% endfor %}
+              </ul>
+            </div>
+                      
+            <div class="col-md-3 mb-3">
+              <ul class="list-group">
+                <li class="list-group-item bg-black active" aria-current="true">Emails:</li>
+                {% for email in whois_domain.email %}
+                  <li class="list-group-item">{{ email }}</li>
+                  
+                  {% empty %}
+                  <li class="list-group-item">Not Available</li>
+                {% endfor %}
+              </ul>
+            </div>
+            
+            <div class="col-md-3 mb-3"> 
+              <ul class="list-group">
+                <li class="list-group-item bg-black active" aria-current="true">Organization:</li>
+                {% for org in whois_domain.org %}
+                  <li class="list-group-item">{{ org }}</li>
+                  
+                  {% empty %}
+                  <li class="list-group-item">Not Available</li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="col-md-3 mb-3">
+              <ul class="list-group">
+                <li class="list-group-item bg-black active" aria-current="true">Address:</li>
+                {% for address in whois_domain.address %}
+                  <li class="list-group-item">{{ address }}</li>   
+                  {% empty %}
+                  <li class="list-group-item">Not Available</li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="col-md-3 mb-3">
+              
+              <ul class="list-group">
+                <li class="list-group-item bg-black active" aria-current="true">City:</li>
+                {% for city in whois_domain.city %}
+                  <li class="list-group-item">{{ city }}</li>
+                  
+                  {% empty %}
+                  <li class="list-group-item">Not Available</li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="col-md-3 mb-3">
+            
+              <ul class="list-group">
+                <li class="list-group-item bg-black active" aria-current="true">State:</li>
+                {% for state in whois_domain.state %}
+                  <li class="list-group-item">{{ state }}</li>
+                  
+                  {% empty %}
+                  <li class="list-group-item">Not Available</li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="col-md-3 mb-3">
+              
+              <ul class="list-group">
+                <li class="list-group-item bg-black active" aria-current="true">Postal Code:</li>
+                {% for postal_code in whois_domain.postal_code %}
+                  <li class="list-group-item">{{ postal_code }}</li>
+                  
+                  {% empty %}
+                  <li class="list-group-item">Not Available</li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="col-md-3 mb-3">
+              
+
+              <ul class="list-group">
+                <li class="list-group-item bg-black active" aria-current="true">Country:</li>
+                {% for country in whois_domain.country %}
+                  <li class="list-group-item">{{ country }}</li>
+                  
+                  {% empty %}
+                  <li class="list-group-item">Not Available</li>
+                {% endfor %}
+              </ul>
+            </div>
+            
+            <div class="col-md-8 mb-3">
+              <ul class="list-group">
+                <li class="list-group-item bg-black active" aria-current="true">Status:</li>
+                {% for stat in whois_domain.status %}
+                  <li class="list-group-item">{{ stat }}</li>
+                  
+                  {% empty %}
+                  <li class="list-group-item">Not Available</li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="col-md-3 mb-3">
+              <ul class="list-group">
+                <li class="list-group-item bg-black active" aria-current="true">Name Servers:</li>
+                {% for name_server in whois_domain.name_servers %}
+                  <li class="list-group-item">{{ name_server }}</li>
+                  
+                  {% empty %}
+                  <li class="list-group-item">Not Available</li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+
+          <form action="{% url 'save_domain' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="domain" value="{{ whois_domain.domain_name }}">
+            <div class="d-flex justify-content-center mt-3">
+              <button type="submit" class="btn me-2 rounded-pill btn-save">
+                Save Domain
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <br><br>
+      {% elif no_data_message %}
+      <div id="no-data-section" class="my-3 text-center text-danger roboto-condensed-three">
+        <h5>{{ no_data_message }}</h5>
+      </div>
+    {% endif %}
+    {% if user.is_authenticated %}
+    {% if  not whois_domain.domain_name %}
+      <div class="text-center roboto-condensed-three mt-5">
+        <h2>Welcome, {{ user.first_name }} {{ user.last_name }}!</h2>
+        <p>Here you can manage your domains.</p>
+      </div>
+        <div class="d-flex justify-content-center manage-domanis-home">
+          <a href="{% url 'user_domains' %}">
+            <button class="btn rounded-pill roboto-condensed-three">
+              MANAGE DOMAINS
+            </button>
+          </a>
+          
+          
+        </div>
+      {% endif %}
+    {% endif %}
+    
+  </div>
+
+
+<script>
+  document.getElementById('domain-form').addEventListener('submit', function() {
+    document.getElementById('loading-spinner').classList.remove('d-none');
+  });
+
+  window.onload = function() {
+    var resultsSection = document.getElementById('results-section');
+    var noDataSection = document.getElementById('no-data-section');
+    
+    if (resultsSection && resultsSection.getAttribute('data-show-results') === 'true') {
+      resultsSection.scrollIntoView({ behavior: 'smooth' });
+    } else if (noDataSection) {
+      noDataSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+</script>
+
+{% endblock %}

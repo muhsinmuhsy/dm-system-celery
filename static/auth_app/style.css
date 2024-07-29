@@ -1,0 +1,31 @@
+.input_one {
+    background-color: #f7f7f9 !important;
+    border: #f7f7f9;
+    border-radius: 50px;
+}
+
+.btn-auth {
+    font-size: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: var(--black-color);
+    color: var(--white-color);
+    border-radius: 50px;
+    width: 100%;
+    
+}
+
+.btn-auth:hover {
+    font-size: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: solid var(--black-color); 
+    color: var(--black-color);
+    border-radius: 50px;
+    width: 100%;
+}
+
+label {
+    font-size: 13px !important;
+}
+
